@@ -21,11 +21,36 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
+var Player = function() {
+    this.sprite = 'images/char-boy.png';
+};
 
 
+Player.prototype.update = function(k,i) {
+    if(k=='x')
+        this.x=x+i;
+    else
+        this.y=y+i;
+};
+
+Player.prototype.render =function() {
+    ctx.drawImage(Resources.get(this.sprite),this.x,this.y);
+};
+
+Player.handleInput = function(e){
+    if(e==37)
+        Player.update('x',-10);
+    else if(e==38)
+        Player.update('y',-10);
+    else if(e==39)
+        Player.update('x',10);
+    else if(e==40)
+        Player.update('y',10);
+}
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
