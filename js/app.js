@@ -1,5 +1,5 @@
 // Enemies our player must avoid
-var Enemy = function(x,y,speed) {
+var Enemy = function(x, y, speed) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
@@ -24,6 +24,11 @@ Enemy.prototype.update = function(dt) {
     }
 };
 
+//Reset Enemy position
+Enemy.prototype.reset = function() {
+    this.x = -100;
+};
+
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
@@ -35,24 +40,32 @@ Enemy.prototype.render = function() {
 // a handleInput() method.
 var Player = function() {
     this.sprite = 'images/char-boy.png';
+    this.score = 0;
     this.x = 200;
     this.y = 400;
 };
 
-
-Player.prototype.update = function() {
-        this.x ;
-
-        this.y ;
+//Update Player Position
+Player.prototype.update = function(dt) {
+    if (this.y <= 10) {
+        victory = 1;
+    }
 };
-
-Player.prototype.render =function() {
-    ctx.drawImage(Resources.get(this.sprite),this.x,this.y);
+//display Player
+Player.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
+//Reset player position
+Player.prototype.reset = function(win) {
+    this.x = 200;
+    this.y = 400;
 
-Player.prototype.handleInput = function(e){
-   // if((this.x>=canvas.width)&&(this.y<=canvas.height)&&this.x
-    if (e === 'left' && this.x > 0) {       
+
+};
+//To manage arrow keys
+Player.prototype.handleInput = function(e) {
+    // if((this.x>=canvas.width)&&(this.y<=canvas.height)&&this.x
+    if (e === 'left' && this.x > 0) {
         this.x -= 101;
     } else if (e === 'right' && this.x < 395) {
         this.x += 101;
@@ -66,12 +79,11 @@ Player.prototype.handleInput = function(e){
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 var player = new Player();
-var En1 = new Enemy(-100, 70, 275);
-var En2 = new Enemy(-100, 160, 350);
-var En3 = new Enemy(-100, 240, 180);
-allEnemies = [En1,En2,En3];
-console.log("New player and Enemy created")
-
+var En1 = new Enemy(-100, 60, 275);
+var En2 = new Enemy(-100, 150, 350);
+var En3 = new Enemy(-100, 230, 180);
+allEnemies = [En1, En2, En3];
+console.log("New player and Enemy created");
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
