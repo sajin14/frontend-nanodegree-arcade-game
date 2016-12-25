@@ -1,6 +1,19 @@
-frontend-nanodegree-arcade-game
-===============================
+#Arcade Game Clone
+  This game mainly featuring a boy and his enemies. The requirement is that boy has reach water without colliding with the enemies.
 
-Students should use this [rubric](https://review.udacity.com/#!/projects/2696458597/rubric) for self-checking their submission. Make sure the functions you write are **object-oriented** - either class functions (like Player and Enemy) or class prototype functions such as Enemy.prototype.checkCollisions, and that the keyword 'this' is used appropriately within your class and class prototype functions to refer to the object the function is called upon. Also be sure that the **readme.md** file is updated with your instructions on both how to 1. Run and 2. Play your arcade game.
+##How to Play
+  Use arrow key to move the boy. The boy must not collide with the Enemy and have to reach the water to win the game.
 
-For detailed instructions on how to get started, check out this [guide](https://docs.google.com/document/d/1v01aScPjSWCCWQLIpFqvg3-vXLH2e8_SZQKC8jNO0Dc/pub?embedded=true).
+ #Game Implementation
+  *Two objects are used : **Enemy** and **Player**. Prototype objects are created for both the objects. 
+  *The constructor initializes the initial position for both the objects.
+  *time variable dt is multiplied with the enemy's position inorder sync the movement speed across different machines.
+  *The position of boy and enemy is resetted when boy reaches water.
+
+  **Collission detection**
+  *A method is used to find out whether boy collided with the enemy. 
+  *If collission is detected the boy's and enemy's positions are resetted.
+
+
+
+
