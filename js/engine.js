@@ -13,7 +13,8 @@
  * the canvas' context (ctx) object globally available to make writing app.js
  * a little simpler to work with.
  */
-
+var collission = 0;
+var victory = 0;
 var Engine = (function(global) {
     /* Predefine the variables we'll be using within this scope,
      * create the canvas element, grab the 2D context for that canvas
@@ -45,8 +46,16 @@ var Engine = (function(global) {
         /* Call our update/render functions, pass along the time delta to
          * our update function since it may be used for smooth animation.
          */
+
         update(dt);
+
         render();
+        if (victory == 1 || collission == 1) {
+            victory = 0;
+            collission = 0;
+            reset();
+        }
+
 
         /* Set our lastTime variable which is used to determine the time delta
          * for the next time this function is called.
@@ -56,15 +65,18 @@ var Engine = (function(global) {
         /* Use the browser's requestAnimationFrame function to call this
          * function again as soon as the browser is able to draw another frame.
          */
+
         win.requestAnimationFrame(main);
+
     }
+
 
     /* This function does some initial setup that should only occur once,
      * particularly setting the lastTime variable that is required for the
      * game loop.
      */
     function init() {
-        reset();
+        //reset();
         lastTime = Date.now();
         main();
     }
@@ -80,7 +92,7 @@ var Engine = (function(global) {
      */
     function update(dt) {
         updateEntities(dt);
-        // checkCollisions();
+        checkCollisions();
     }
 
     /* This is called by the update function and loops through all of the
@@ -94,7 +106,7 @@ var Engine = (function(global) {
         allEnemies.forEach(function(enemy) {
             enemy.update(dt);
         });
-        player.update();
+        player.update(dt);
     }
 
     /* This function initially draws the "game level", it will then call
@@ -108,12 +120,12 @@ var Engine = (function(global) {
          * for that particular row of the game level.
          */
         var rowImages = [
-                'images/water-block.png',   // Top row is water
-                'images/stone-block.png',   // Row 1 of 3 of stone
-                'images/stone-block.png',   // Row 2 of 3 of stone
-                'images/stone-block.png',   // Row 3 of 3 of stone
-                'images/grass-block.png',   // Row 1 of 2 of grass
-                'images/grass-block.png'    // Row 2 of 2 of grass
+                'images/water-block.png', // Top row is water
+                'images/stone-block.png', // Row 1 of 3 of stone
+                'images/stone-block.png', // Row 2 of 3 of stone
+                'images/stone-block.png', // Row 3 of 3 of stone
+                'images/grass-block.png', // Row 1 of 2 of grass
+                'images/grass-block.png' // Row 2 of 2 of grass
             ],
             numRows = 6,
             numCols = 5,
@@ -147,6 +159,7 @@ var Engine = (function(global) {
         /* Loop through all of the objects within the allEnemies array and call
          * the render function you have defined.
          */
+
         allEnemies.forEach(function(enemy) {
             enemy.render();
         });
@@ -159,7 +172,13 @@ var Engine = (function(global) {
      * those sorts of things. It's only called once by the init() method.
      */
     function reset() {
-        // noop
+
+        player.reset(win);
+        for (var i = 0; i < allEnemies.length; i++)
+            allEnemies[i].reset();
+        victory = 0;
+
+
     }
 
     /* Go ahead and load all of the images we know we're going to need to
@@ -181,3 +200,13 @@ var Engine = (function(global) {
      */
     global.ctx = ctx;
 })(this);
+
+function checkCollisions() {
+    for (var i = 0; i < allEnemies.length; i++) {
+        if (player.x < allEnemies[i].x + 50 && player.x + 50 > allEnemies[i].x &&
+            player.y < allEnemies[i].y + 50 && player.y + 50 > allEnemies[i].y) {
+            collission = 1;
+
+        }
+    }
+}
