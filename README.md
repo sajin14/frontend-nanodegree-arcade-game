@@ -1,8 +1,16 @@
 #Arcade Game Clone
   This game mainly featuring a boy and his enemies. The requirement is that boy has reach water without colliding with the enemies.
 
-##How to Play
-  Use arrow key to move the boy. The boy must not collide with the Enemy and have to reach the water to win the game.
+##How to Start the game
+   Click on index.html file to open the game.
+
+##How to Play  
+  Use arrows key to move the boy. The boy must not collide with the Enemy and have to reach the water to win the game.
+  **Arrow Keys** 
+  **up** : move Forward
+  **down** : move backward
+  **left** : move left
+  **right** : move right
 
  #Game Implementation
   *Two objects are used : **Enemy** and **Player**. Prototype objects are created for both the objects. 
